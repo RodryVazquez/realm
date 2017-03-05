@@ -8,9 +8,8 @@ import android.widget.TextView;
 import vazquez.rodrigo.realm.R;
 
 /**
- * Created by Rodrigo on 2/23/2017.
+ *
  */
-
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     /**
@@ -34,7 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        TextView v = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main,parent,false);
+        TextView v = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_adapter,parent,false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
