@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Realm</string>
+    <string name="added_successfully">Added Successfully</string>
+    <string name="error_data_not_save">Error, data don\'t save</string>
 </resources>

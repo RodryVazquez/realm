@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+//Necesario para configurar Realm
 apply plugin: 'realm-android'
 
 android {
