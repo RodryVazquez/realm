@@ -12,9 +12,11 @@ import android.widget.Toast;
 
 import java.util.UUID;
 
+import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 import io.realm.RealmChangeListener;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import vazquez.rodrigo.realm.Adapters.MyAdapter;
 import vazquez.rodrigo.realm.Models.DogModel;
@@ -121,7 +123,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //
+    /**
+     *
+     * @param view
+     */
     public void addUserToRealm_Asynchronously(View view) {
 
         final String id = UUID.randomUUID().toString();
@@ -159,10 +164,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     *
+     * @param view
+     */
     public void displayAllUsers(View view) {
 
         RealmResults<User> userList = myRealm.where(User.class).findAll();
+        displayQueriedUsers(userList);
+    }
+
+    /**
+     * Mustra el ds de RealmResults
+     * @param userList
+     */
+    private void displayQueriedUsers(RealmResults<User> userList){
         StringBuilder builder = new StringBuilder();
 
         for (User user : userList) {
@@ -177,6 +193,73 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Log.i(TAG + "Lists Results", builder.toString());
+    }
+
+    /**
+     * Uso de Fluid Interface y Predicates
+     * @param view
+     */
+    public void sampleQueryExample(View view){
+        //Uso de Fluid Interface
+        RealmResults<User> userList2 = myRealm.where(User.class)
+                .greaterThan("age",28)
+                .contains("name","rodrigo", Case.INSENSITIVE)
+                .findAll();
+        displayQueriedUsers(userList2);
+    }
+
+    /**
+     *
+     */
+    public void groupData(){
+
+        //AND OR operators
+        RealmResults<User> users =  myRealm.where(User.class)
+                .contains("name", "Rodry", Case.INSENSITIVE) //AND
+                .beginGroup()
+                .lessThan("age",50)
+                .or() //Explicity OR
+                .greaterThan("age",40)
+                .endGroup()
+                .findAll();
+
+
+        //Ordenamos con base al nombre de la Social Account
+        users = myRealm.where(User.class)
+                .findAll()
+                .sort("socialAccount.name");
+
+
+        //Actualizar un registro
+        myRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                User user = realm.where(User.class).findFirst();
+                user.setName("Cochinilla");
+                SocialAccount socialAccount = user.getSocialAccount();
+                if(socialAccount != null){
+                    socialAccount.setName("New Name");
+                    socialAccount.setStatus("New Status");
+                }
+            }
+        });
+
+        //Tipos de borrado
+        myRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                //Borrar elemento especifico
+                User user = realm.where(User.class).findFirst();
+                user.deleteFromRealm();
+
+                //Borrar de una coleccion
+                RealmResults<User> userRealmResults = realm.where(User.class).findAll();
+                userRealmResults.deleteFirstFromRealm(); //Borra el primer elemento de la lista
+                userRealmResults.deleteLastFromRealm(); //Borra el ultimo elemento de la lista
+                userRealmResults.deleteFromRealm(3); // Borra el elemento con base su posicion
+                userRealmResults.deleteAllFromRealm(); //Borra todos los datos
+            }
+        });
     }
 
     //
