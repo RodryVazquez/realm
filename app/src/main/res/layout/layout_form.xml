@@ -52,4 +52,10 @@
         android:layout_height="wrap_content"
         android:text="Display All"/>
 
+    <Button
+        android:text="open display activity"
+        android:onClick="openDisplayActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

@@ -1,6 +1,7 @@
 package vazquez.rodrigo.realm;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,7 +26,7 @@ import vazquez.rodrigo.realm.Models.SocialAccount;
 import vazquez.rodrigo.realm.Models.User;
 
 /**
- * TODO
+ * Actividad principal
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Ejecuta una transaccion de manera asincrona
      * @param view
      */
     public void addUserToRealm_Asynchronously(View view) {
@@ -149,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
                 user.setName(name);
                 user.setAge(age);
                 user.setSocialAccount(socialAccount);
-
             }
         }, new Realm.Transaction.OnSuccess() {
             @Override
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Lista todos los registros
      * @param view
      */
     public void displayAllUsers(View view) {
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Delete, Update, Sort, Operators
      */
     public void groupData(){
 
@@ -332,5 +332,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         myRealm.close();
+    }
+
+    /**
+     * Inicia un intent para mostrar la vista con el Recycler View
+     * @param view
+     */
+    public void openDisplayActivity(View view) {
+        Intent intent = new Intent(this, DisplayActivity.class);
+        startActivity(intent);
     }
 }
