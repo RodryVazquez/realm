@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private Realm myRealm;
     private RealmAsyncTask realAsyncTask;
 
+    RealmResults<User>  userList;
+
+
     /**
      * /**
      * Al cargar la actividad
@@ -320,6 +323,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+
+        //Removemos los listeners
+        if(userList != null){
+            userList.removeChangeListener(userListListener); // remueve un listener especifico
+            //userList.removeChangeListeners(); remueve todos los listeners
+
+            /*
+              listeners estan disponibles para
+              Realm Instance
+              Realm Object
+              Realm Result<E>
+              Realm List<E>
+            */
+        }
+
         if (realAsyncTask != null && !realAsyncTask.isCancelled()) {
             realAsyncTask.cancel();
         }
@@ -342,4 +360,28 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DisplayActivity.class);
         startActivity(intent);
     }
+
+    /**
+     *
+     * @param view
+     */
+    public void exploreMiscConcepts(View view) {
+
+        userList = myRealm.where(User.class).findAllAsync();
+        userList.addChangeListener(userListListener);
+
+        //Si la consulta ya termino
+        //if(userList.isLoaded())
+        //    userList.deleteFirstFromRealm();
+    }
+
+    /**
+     * Listener se ejecuta cada vez que existe un cambio en el objeto que lo implementa
+     */
+    RealmChangeListener<RealmResults<User>> userListListener = new RealmChangeListener<RealmResults<User>>() {
+        @Override
+        public void onChange(RealmResults<User> element) {
+            displayQueriedUsers(element);
+        }
+    };
 }
