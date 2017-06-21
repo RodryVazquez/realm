@@ -4,6 +4,10 @@ import android.app.Application;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.annotations.RealmModule;
+import vazquez.rodrigo.realm.Models.Company;
+import vazquez.rodrigo.realm.Models.SocialAccount;
+import vazquez.rodrigo.realm.Models.User;
 
 /**
  *Inicializamos Realm
@@ -11,6 +15,9 @@ import io.realm.RealmConfiguration;
 
 public class MyApplication extends Application {
 
+    /**
+     *
+     */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,7 +27,30 @@ public class MyApplication extends Application {
         //Configuration Realm DB
         RealmConfiguration configuration = new RealmConfiguration.Builder()
                 .name("myFirstRealm.realm") //By default the name is default.realm
+                .modules(new MyCustomModule())
                 .build();
         Realm.setDefaultConfiguration(configuration);
+    }
+
+
+    /**
+     * Modulo custom
+     * TODO Aplicar Migracion
+     */
+    @RealmModule (classes = {User.class, SocialAccount.class, Company.class})
+    public class MyCustomModule{
+
+    }
+
+    /**
+     * Instancia dummy
+     * @return
+     */
+    public static  Realm getAnotherInstance(){
+
+        RealmConfiguration otherConfig = new RealmConfiguration.Builder()
+                .name("another.realm")
+                .build();
+        return Realm.getInstance(otherConfig);
     }
 }
