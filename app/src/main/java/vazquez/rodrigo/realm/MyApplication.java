@@ -28,10 +28,11 @@ public class MyApplication extends Application {
         RealmConfiguration configuration = new RealmConfiguration.Builder()
                 .name("myFirstRealm.realm") //By default the name is default.realm
                 .modules(new MyCustomModule())
+                .schemaVersion(2) //por default es 0
+                .migration(new MyMigration())
                 .build();
         Realm.setDefaultConfiguration(configuration);
     }
-
 
     /**
      * Modulo custom

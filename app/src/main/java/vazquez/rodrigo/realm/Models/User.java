@@ -4,6 +4,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.Index;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 /**
  *
@@ -16,6 +17,11 @@ public class User extends RealmObject {
     private String name;
     private int age;
     private SocialAccount socialAccount;
+
+    @Required
+    private String hobby;
+
+    private Company company;
 
     public String getId() {
         return id;
@@ -47,5 +53,21 @@ public class User extends RealmObject {
 
     public void setSocialAccount(SocialAccount socialAccount) {
         this.socialAccount = socialAccount;
+    }
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

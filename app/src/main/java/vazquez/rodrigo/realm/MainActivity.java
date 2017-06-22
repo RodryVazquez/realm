@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new MyAdapter(new String[]{"Rodrigo","Kristel"});
         mRecyclerView.setAdapter(mAdapter);
         testRealmData(this);*/
+
+        Log.i(TAG,"Current Version" + myRealm.getVersion());
     }
 
     /**
