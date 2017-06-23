@@ -386,4 +386,9 @@ public class MainActivity extends AppCompatActivity {
             displayQueriedUsers(element);
         }
     };
+
+    public void jsonExample(View view) {
+        Intent intent = new Intent(view.getContext(), JsonActivity.class);
+        startActivity(intent);
+    }
 }

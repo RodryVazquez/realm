@@ -4,64 +4,79 @@
     android:layout_margin="10dp"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/etPersonName"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Person Name"/>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/etPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Person Name"/>
 
-    <EditText
-        android:id="@+id/etAge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Age"/>
+            <EditText
+                android:id="@+id/etAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Age"/>
 
-    <EditText
-        android:id="@+id/etSocialAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Social Account"/>
+            <EditText
+                android:id="@+id/etSocialAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Social Account"/>
 
-    <EditText
-        android:id="@+id/etStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Status"/>
+            <EditText
+                android:id="@+id/etStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Status"/>
 
-    <Button
-        android:text="Add To Realm [ Using Main Thread]"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="addUserToRealm_Synchronously"/>
+            <Button
+                android:text="Add To Realm [ Using Main Thread]"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="addUserToRealm_Synchronously"/>
 
-    <Button
-        android:text="Add To Realm [ In Background Thread]"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="addUserToRealm_Asynchronously"/>
+            <Button
+                android:text="Add To Realm [ In Background Thread]"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="addUserToRealm_Asynchronously"/>
 
-    <Button
-        android:text="Simple Query Example"
-        android:onClick="sampleQueryExample"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <Button
+                android:text="Simple Query Example"
+                android:onClick="sampleQueryExample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <Button
-        android:onClick="displayAllUsers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Display All"/>
+            <Button
+                android:onClick="displayAllUsers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Display All"/>
 
-    <Button
-        android:text="open display activity"
-        android:onClick="openDisplayActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="openDisplayActivity"
+                android:text="open display activity" />
 
-    <Button
-        android:text="concepts miscellanous"
-        android:onClick="exploreMiscConcepts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <Button
+                android:text="concepts miscellanous"
+                android:onClick="exploreMiscConcepts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <Button
+                android:text="Json Example"
+                android:onClick="jsonExample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

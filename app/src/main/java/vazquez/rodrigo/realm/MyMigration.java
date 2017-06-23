@@ -8,6 +8,7 @@ import io.realm.RealmObjectSchema;
 import io.realm.RealmSchema;
 
 /**
+ * Clase para manejar las migraciones de la bd
  * Created by Rodrigo Vazquez on 22/06/2017.
  */
 
@@ -33,6 +34,16 @@ public class MyMigration implements RealmMigration {
             //Indicamos el nuevo objeto company en users
             RealmObjectSchema userSchema = schema.get("User");
             userSchema.addRealmObjectField("company", companySchema);
+
+            oldVersion++;
+        }
+
+        if(oldVersion == 2){
+
+            //Agregamos la tabla de city
+            RealmObjectSchema citySchema = schema.create("City");
+            citySchema.addField("name",String.class);
+            citySchema.addField("votes", long.class);
 
             oldVersion++;
         }

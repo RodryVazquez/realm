@@ -5,6 +5,7 @@ import android.app.Application;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.annotations.RealmModule;
+import vazquez.rodrigo.realm.Models.City;
 import vazquez.rodrigo.realm.Models.Company;
 import vazquez.rodrigo.realm.Models.SocialAccount;
 import vazquez.rodrigo.realm.Models.User;
@@ -28,7 +29,7 @@ public class MyApplication extends Application {
         RealmConfiguration configuration = new RealmConfiguration.Builder()
                 .name("myFirstRealm.realm") //By default the name is default.realm
                 .modules(new MyCustomModule())
-                .schemaVersion(2) //por default es 0
+                .schemaVersion(3) //por default es 0
                 .migration(new MyMigration())
                 .build();
         Realm.setDefaultConfiguration(configuration);
@@ -38,10 +39,8 @@ public class MyApplication extends Application {
      * Modulo custom
      * TODO Aplicar Migracion
      */
-    @RealmModule (classes = {User.class, SocialAccount.class, Company.class})
-    public class MyCustomModule{
-
-    }
+    @RealmModule (classes = {User.class, SocialAccount.class, Company.class, City.class})
+    public class MyCustomModule{}
 
     /**
      * Instancia dummy

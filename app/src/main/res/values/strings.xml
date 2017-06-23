@@ -2,4 +2,5 @@
     <string name="app_name">Realm</string>
     <string name="added_successfully">Added Successfully</string>
     <string name="error_data_not_save">Error, data don\'t save</string>
+    <string name="label">My Favorite City</string>
 </resources>
