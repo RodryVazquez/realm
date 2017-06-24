@@ -1,6 +1,7 @@
 package vazquez.rodrigo.realm;
 
 import io.realm.DynamicRealm;
+import io.realm.DynamicRealmObject;
 import io.realm.FieldAttribute;
 import io.realm.RealmMigration;
 import io.realm.RealmObject;
@@ -19,13 +20,14 @@ public class MyMigration implements RealmMigration {
     public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
         RealmSchema schema = realm.getSchema();
 
-        //Realizamos la migracion
+        //Migramos de la version 0 a la 1
         if(oldVersion == 0){
             RealmObjectSchema userSchema1 = schema.get("User");
             userSchema1.addField("hobby", String.class, FieldAttribute.REQUIRED);
             oldVersion++;
         }
 
+        //Migramos de la version 1 a la 2
         if(oldVersion == 1){
 
             //Agregamos a Company
@@ -38,6 +40,7 @@ public class MyMigration implements RealmMigration {
             oldVersion++;
         }
 
+        //Migramos de la version 2 a 3
         if(oldVersion == 2){
 
             //Agregamos la tabla de city
@@ -47,5 +50,24 @@ public class MyMigration implements RealmMigration {
 
             oldVersion++;
         }
+        /*************************************************
+        //Migramos de la version 3 a la 4
+        if (oldVersion == 3) {
+            RealmObjectSchema userSchema = schema.get("User");
+
+            // Combine 'firstName' and 'lastName' in a new field called 'fullName'
+            userSchema
+                    .addField("fullName", String.class, FieldAttribute.REQUIRED)
+                    .transform(new RealmObjectSchema.Function() {
+                        @Override
+                        public void apply(DynamicRealmObject obj) {
+                            obj.set("fullName", obj.getString("firstName") + " " + obj.getString("lastName"));
+                        }
+                    })
+                    .removeField("firstName")
+                    .removeField("lastName");
+            oldVersion++;
+        }
+        ****************************************************/
     }
 }

@@ -98,7 +98,7 @@ public class JsonActivity extends AppCompatActivity {
 
     private void loadJsonFromStream() throws java.io.IOException {
 
-        InputStream inputStream = getAssets().open("cities.json");
+        InputStream inputStream = getAssets().open("cities");
 
         realm.beginTransaction();
         try{
