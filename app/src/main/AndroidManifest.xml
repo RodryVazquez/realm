@@ -22,7 +22,8 @@
         <activity
             android:name=".EditActivity"
             android:parentActivityName=".DisplayActivity" />
-        <activity android:name=".JsonActivity"></activity>
+        <activity android:name=".JsonActivity" />
+        <activity android:name=".ThreadExampleActivity"></activity>
     </application>
 
 </manifest>

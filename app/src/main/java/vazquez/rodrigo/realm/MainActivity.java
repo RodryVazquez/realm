@@ -1,5 +1,6 @@
 package vazquez.rodrigo.realm;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -388,7 +389,15 @@ public class MainActivity extends AppCompatActivity {
     };
 
     public void jsonExample(View view) {
-        Intent intent = new Intent(view.getContext(), JsonActivity.class);
-        startActivity(intent);
+        startActivity(JsonActivity.class);
+    }
+
+    public void threadExample(View view) {
+        startActivity(ThreadExampleActivity.class);
+    }
+
+
+    void startActivity(Class<? extends Activity> activityClass){
+        startActivity(new Intent(this,activityClass));
     }
 }

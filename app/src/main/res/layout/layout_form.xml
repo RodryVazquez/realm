@@ -77,6 +77,12 @@
                 android:onClick="jsonExample"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <Button
+                android:text="Thread Example"
+                android:onClick="threadExample"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
