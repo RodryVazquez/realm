@@ -7,6 +7,7 @@ import io.realm.RealmConfiguration;
 import io.realm.annotations.RealmModule;
 import vazquez.rodrigo.realm.Models.City;
 import vazquez.rodrigo.realm.Models.Company;
+import vazquez.rodrigo.realm.Models.GitHub;
 import vazquez.rodrigo.realm.Models.SocialAccount;
 import vazquez.rodrigo.realm.Models.User;
 
@@ -39,7 +40,7 @@ public class MyApplication extends Application {
      * Modulo custom
      * TODO Aplicar Migracion
      */
-    @RealmModule (classes = {User.class, SocialAccount.class, Company.class, City.class})
+    @RealmModule (classes = {User.class, SocialAccount.class, Company.class, City.class, GitHub.class})
     public class MyCustomModule{}
 
     /**

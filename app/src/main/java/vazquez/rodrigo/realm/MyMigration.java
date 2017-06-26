@@ -53,7 +53,6 @@ public class MyMigration implements RealmMigration {
 
         //Migramos de la version 3 a 4
         if(oldVersion == 3){
-
             RealmObjectSchema gitHubSchema = schema.create("GitHub");
             gitHubSchema.addField("id", Integer.class);
             gitHubSchema.addField("name",String.class);

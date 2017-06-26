@@ -1,6 +1,8 @@
 package vazquez.rodrigo.realm.Models;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 /**
  * Created by Rodry on 6/25/2017.
@@ -9,6 +11,7 @@ import io.realm.RealmObject;
 public class GitHub extends RealmObject {
 
     public int id;
+    @Required
     public String name;
     public String full_name;
 
