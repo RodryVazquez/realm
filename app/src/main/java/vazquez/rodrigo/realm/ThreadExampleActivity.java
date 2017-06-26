@@ -41,7 +41,6 @@ public class ThreadExampleActivity extends AppCompatActivity {
                 lstGithub.setAdapter(new GithubAdapter(element));
             }
         };
-
         setUpListView();
     }
 
@@ -63,7 +62,7 @@ public class ThreadExampleActivity extends AppCompatActivity {
         results.addChangeListener(listener);
     }
 
-    public void startIntent(){
+    public void startIntent() {
         Intent intent = new Intent(this, PollingService.class);
         intent.putExtra("url", URL);
         startService(intent);
