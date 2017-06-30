@@ -2,10 +2,14 @@ package vazquez.rodrigo.realm;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -28,6 +32,7 @@ public class ThreadExampleActivity extends AppCompatActivity {
     private RealmChangeListener<RealmResults<GitHub>> listener;
     Realm realm;
     private ListView lstGithub;
+    private GithubAdapter githubAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +43,27 @@ public class ThreadExampleActivity extends AppCompatActivity {
         listener = new RealmChangeListener<RealmResults<GitHub>>() {
             @Override
             public void onChange(RealmResults<GitHub> element) {
-                lstGithub.setAdapter(new GithubAdapter(element));
+                lstGithub.setAdapter(githubAdapter = new GithubAdapter(element));
             }
         };
+
         setUpListView();
+
+        lstGithub.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final GitHub gitHub = (GitHub) githubAdapter.getItem(position);
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        realm.where(GitHub.class).equalTo("id", gitHub.getId())
+                                .findAll()
+                                .deleteAllFromRealm();
+                    }
+                });
+                return true;
+            }
+        });
     }
 
     @Override
@@ -66,5 +88,69 @@ public class ThreadExampleActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PollingService.class);
         intent.putExtra("url", URL);
         startService(intent);
+    }
+
+    /*  Async Task & Intent Service
+    *   http://android-cuu-api.herokuapp.com/api/movies
+    *   If you need to use Realm in either of these methods (doInBackground(T),onHandleIntent(T))
+    *   you should open the Realm, perform your work and then
+    *   close the Realm before exiting
+    * */
+
+    private class DownloadFilesTask extends AsyncTask<String, Integer, String> {
+
+        //Main thread Updates
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            Log.e("Progress", String.valueOf(values[0]));
+        }
+
+        //Background thread
+        @Override
+        protected String doInBackground(String... params) {
+            Realm realm = Realm.getDefaultInstance();
+            String json = null;
+            try {
+                for (int i = 10; i <= 100; i += 10) {
+                    Thread.sleep(1000);
+                    //Progress
+                    publishProgress(i);
+                }
+            } catch (Exception ex) {
+                Log.e("TAG", ex.getMessage());
+                realm.close();
+            } finally {
+                realm.close();
+            }
+            return json;
+        }
+
+        //Main thread
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //Save and process Json String
+        }
+    }
+
+    private class DownloadFilesIntentService extends IntentService {
+
+        public DownloadFilesIntentService() {
+            super("DownloadFiles");
+        }
+
+        //Worker Thread (another thread)
+        @Override
+        protected void onHandleIntent(@Nullable Intent intent) {
+            Realm realm = Realm.getDefaultInstance();
+            try {
+
+            } catch (Exception ex) {
+                Log.e("TAG", ex.getMessage());
+                realm.close();
+            } finally {
+                realm.close();
+            }
+        }
     }
 }
