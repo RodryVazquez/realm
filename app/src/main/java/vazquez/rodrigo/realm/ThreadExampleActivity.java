@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -23,6 +24,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import vazquez.rodrigo.realm.Adapters.GithubAdapter;
+import vazquez.rodrigo.realm.Models.Car;
 import vazquez.rodrigo.realm.Models.GitHub;
 import vazquez.rodrigo.realm.Services.PollingService;
 
@@ -38,6 +40,19 @@ public class ThreadExampleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread_example);
+
+        //Leemos el objeto Parcelable
+        Car car = getIntent().getParcelableExtra("ParcelableCar");
+        if(car != null){
+
+            StringBuilder builder = new StringBuilder();
+            builder.append("Id " + car.getCarId());
+            builder.append(" Brand " + car.getCarName());
+            builder.append(" State " + car.getRun());
+
+            Toast.makeText(this, builder.toString(), Toast.LENGTH_SHORT).show();
+        }
+
         realm = Realm.getDefaultInstance();
 
         listener = new RealmChangeListener<RealmResults<GitHub>>() {

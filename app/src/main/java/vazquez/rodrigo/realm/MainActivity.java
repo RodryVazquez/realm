@@ -21,6 +21,7 @@ import io.realm.RealmChangeListener;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import vazquez.rodrigo.realm.Adapters.MyAdapter;
+import vazquez.rodrigo.realm.Models.Car;
 import vazquez.rodrigo.realm.Models.DogModel;
 import vazquez.rodrigo.realm.Models.PersonModel;
 import vazquez.rodrigo.realm.Models.SocialAccount;
@@ -393,9 +394,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void threadExample(View view) {
-        startActivity(ThreadExampleActivity.class);
+        Car car = new Car(1289,"ChevyMonza", true);
+        launchParcelObject(car);
     }
 
+
+    private void launchParcelObject(Car model){
+        Intent intent = new Intent(this, ThreadExampleActivity.class);
+        intent.putExtra("ParcelableCar", model);
+        startActivity(intent);
+    }
 
     void startActivity(Class<? extends Activity> activityClass){
         startActivity(new Intent(this,activityClass));
